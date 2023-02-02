@@ -3,6 +3,7 @@ import inspect
 import json
 import os
 import collections
+from collections import abc
 
 
 def load_ast_tree(filename):
@@ -19,7 +20,7 @@ def convert_ast(node, return_type='string', include_type=False, sep=':'):
         items = []
         for k, v in d.items():
             new_key = parent_key + sep + k if parent_key else k
-            if isinstance(v, collections.MutableMapping):
+            if isinstance(v, abc.MutableMapping):
                 items.extend(_flatten_dict(v, new_key, sep=sep).items())
             else:
                 items.append((new_key, v))
